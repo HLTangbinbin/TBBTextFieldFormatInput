@@ -14,7 +14,8 @@
  */
 + (BOOL)numberFormatTextField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string textFieldType:(kTextFieldType)type;
 
-###################################### 实现代码如下 ########################################
+ ************************************** 实现代码如下 *************************************
+ 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
 
     if(self.phoneNumberTextfield == textField) {
