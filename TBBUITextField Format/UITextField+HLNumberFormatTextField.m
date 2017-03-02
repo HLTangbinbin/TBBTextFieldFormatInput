@@ -7,7 +7,24 @@
 //
 
 #import "UITextField+HLNumberFormatTextField.h"
-
+//手机号长度
+#define KPhoneNumLength 11
+//身份证号最大长度
+#define KIDLength 18
+//银行卡号最大长度
+#define KBankcardNumLength 24
+//手机号334格式空格处光标所处位置长度分别为3，8
+#define KPhoneNumFirstPoint 3
+#define KPhoneNumSecondPoint 8
+//身份证号684格式空格处光标所处位置分别为6，15
+#define KIDNumFirstPoint 6
+#define KIDNumSecondPoint 15
+//银行卡证号684格式空格处光标所处位置分别为4，9，14，19，24
+#define KBankcardNumFirstPoint 4
+#define KBankcardNumSecondPoint 9
+#define KBankcardNumThirdPoint 14
+#define KBankcardNumFourthPoint 19
+#define KBankcardNumFifthPoint 24
 @implementation UITextField (HLTextField)
 
 /**
@@ -85,21 +102,21 @@
             
             if (type == kIDCardNoTextFieldType) {
                 //限制输入字符个数
-                if (([self whiteSpaseString:textField.text].length + string.length - range.length > 18) ) {
+                if (([self whiteSpaseString:textField.text].length + string.length - range.length > KIDLength) ) {
                     return NO;
                 }
   
             }else if (type == kPhoneNumberTextFieldType){
                
                 //限制输入字符个数
-                if (([self whiteSpaseString:textField.text].length + string.length - range.length > 11) ) {
+                if (([self whiteSpaseString:textField.text].length + string.length - range.length > KPhoneNumLength) ) {
                     return NO;
                 }
                 
             }else{
                 
                 //限制输入字符个数
-                if (([self whiteSpaseString:textField.text].length + string.length - range.length > 24) ) {
+                if (([self whiteSpaseString:textField.text].length + string.length - range.length > KBankcardNumLength) ) {
                     return NO;
                 }
  
@@ -112,17 +129,17 @@
              [self shouldChangeCharactersInRange:range textFieldType:type locationOffset:offset];
 
             if (type == kIDCardNoTextFieldType) {
-                if (range.location == 6 || range.location  == 15) {
+                if (range.location == KIDNumFirstPoint || range.location  == KIDNumSecondPoint) {
                     offset ++;
                 }
             }else if (type == kPhoneNumberTextFieldType){
-                if (range.location == 3 || range.location  == 8) {
+                if (range.location == KPhoneNumFirstPoint || range.location  == KPhoneNumSecondPoint) {
                     offset ++;
                 }
                 
             }else{
                 
-                if (range.location == 4 || range.location  == 9 || range.location == 14 || range.location  == 19 || range.location == 24 || range.location == 29) {
+                if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location == KBankcardNumFifthPoint) {
                     offset ++;
                 }
                 
@@ -149,39 +166,37 @@
     NSMutableString* tStr = [NSMutableString stringWithString:[string stringByReplacingOccurrencesOfString:@" " withString:@""]];
     if (type == kIDCardNoTextFieldType) {
         //身份证号
-        if (tStr.length >6) {
-            [tStr insertString:@" " atIndex:6];
-        }if (tStr.length > 15) {
-            [tStr insertString:@" " atIndex:15];
+        if (tStr.length >KIDNumFirstPoint) {
+            [tStr insertString:@" " atIndex:KIDNumFirstPoint];
+        }if (tStr.length > KIDNumSecondPoint) {
+            [tStr insertString:@" " atIndex:KIDNumSecondPoint];
             
         }
     }else if (type == kPhoneNumberTextFieldType){
     
         //手机号
-        if (tStr.length >3) {
-            [tStr insertString:@" " atIndex:3];
-        }if (tStr.length > 8) {
-            [tStr insertString:@" " atIndex:8];
+        if (tStr.length >KPhoneNumFirstPoint) {
+            [tStr insertString:@" " atIndex:KPhoneNumFirstPoint];
+        }if (tStr.length > KPhoneNumSecondPoint) {
+            [tStr insertString:@" " atIndex:KPhoneNumSecondPoint];
             
         }
         
     }else{
     
         //银行卡号
-        if (tStr.length >4) {
-            [tStr insertString:@" " atIndex:4];
-        }if (tStr.length > 9) {
-            [tStr insertString:@" " atIndex:9];
+        if (tStr.length >KBankcardNumFirstPoint) {
+            [tStr insertString:@" " atIndex:KBankcardNumFirstPoint];
+        }if (tStr.length > KBankcardNumSecondPoint) {
+            [tStr insertString:@" " atIndex:KBankcardNumSecondPoint];
             
-        } if (tStr.length >14) {
-            [tStr insertString:@" " atIndex:14];
-        }if (tStr.length > 19) {
-            [tStr insertString:@" " atIndex:19];
+        } if (tStr.length >KBankcardNumThirdPoint) {
+            [tStr insertString:@" " atIndex:KBankcardNumThirdPoint];
+        }if (tStr.length > KBankcardNumFourthPoint) {
+            [tStr insertString:@" " atIndex:KBankcardNumFourthPoint];
             
-        }if (tStr.length >24) {
-            [tStr insertString:@" " atIndex:24];
-        }if (tStr.length >29) {
-            [tStr insertString:@" " atIndex:29];
+        }if (tStr.length >KBankcardNumFifthPoint) {
+            [tStr insertString:@" " atIndex:KBankcardNumFifthPoint];
         }
         
     }
@@ -193,17 +208,17 @@
 +(void)shouldChangeCharactersInRange:(NSRange)range  textFieldType:(kTextFieldType)type locationOffset:(NSInteger)offset{
 
     if (type == kIDCardNoTextFieldType) {
-        if (range.location == 6 || range.location  == 15) {
+        if (range.location == KIDNumFirstPoint || range.location  == KIDNumSecondPoint) {
             offset ++;
         }
     }else if (type == kPhoneNumberTextFieldType){
-        if (range.location == 3 || range.location  == 8) {
+        if (range.location == KPhoneNumFirstPoint || range.location  == KPhoneNumSecondPoint) {
             offset ++;
         }
         
     }else{
         
-        if (range.location == 4 || range.location  == 9 || range.location == 14 || range.location  == 19 || range.location  == 24) {
+        if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location  == KBankcardNumFifthPoint) {
             offset ++;
         }
         
